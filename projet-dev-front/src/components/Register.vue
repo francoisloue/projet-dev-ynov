@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="input-register">
       <h1>Register</h1>
       <label for="mail">mail :</label>  
       <input id="email" type="text" v-model="mail">
