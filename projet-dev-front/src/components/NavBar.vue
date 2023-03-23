@@ -1,4 +1,5 @@
 <template>
+  <link rel="stylesheet" href="css/pico.min.css">
     <div class="navbar">
         <ul>
             <li><a href="/login"> Login</a></li>
