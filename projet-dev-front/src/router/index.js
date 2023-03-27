@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router"
 import App from "@/views/App.vue"
 import Register from "@/views/RegisterPage.vue"
-
+import NewItem from "@/views/NewItemPage.vue"
 
 const routes=[
     {
@@ -14,6 +14,12 @@ const routes=[
         name: "register",
         component: Register,
     },
+    {
+        path: "/new-item",
+        name: "newItem",
+        component: NewItem,
+    }
+
 ]
 
 
