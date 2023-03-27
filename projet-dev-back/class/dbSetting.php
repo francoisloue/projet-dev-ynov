@@ -60,4 +60,24 @@ class DBHandler
         mysqli_close($con);
         return $result->fetch_assoc();
     }
+    public function getAllFromTable($table)
+    {
+        $con = $this->connect();
+        $answerArray = array();
+        if ($con == false) {
+            die("ERROR : couldn't connect properly to database : " . mysqli_connect_error());
+        }
+        $sql = "SELECT * FROM " . $table;
+        if ($request = $con->prepare($sql)) {
+            $request->execute();
+            $result = $request->get_result();
+            while ($row = mysqli_fetch_assoc($result)) {
+                $answerArray[] = $row;
+            }
+        } else {
+            die("there has been an error in the process of : " . $sql . " " . mysqli_error($con));
+        }
+        mysqli_close($con);
+        return json_encode($answerArray);
+    }
 }
