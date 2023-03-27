@@ -5,6 +5,7 @@ require_once("./class/newItem.php");
 require_once("./class/category.php");
 $DB = new DBHandler();
 
+$request_URI = explode("/", $_SERVER["REQUEST_URI"]);
 $request_method = $_SERVER["REQUEST_METHOD"];
 switch ($request_method) {
     case ("POST"):

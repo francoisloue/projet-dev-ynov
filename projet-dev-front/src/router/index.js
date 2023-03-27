@@ -15,7 +15,7 @@ const routes=[
         component: Register,
     },
     {
-        path: "/new-item",
+        path: "/newItem",
         name: "newItem",
         component: NewItem,
     }
