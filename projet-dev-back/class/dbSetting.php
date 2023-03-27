@@ -75,4 +75,11 @@ class DBHandler
         mysqli_close($db) ;
         return $arrayData ;
     }
+
+    public function updateInDB(string $table, string $rowToUpdate,mixed $newValue, string $tableCondition ,string $condition){
+        $db = $this->connect();
+        $sql = $db->prepare("UPDATE `$table` SET `$rowToUpdate` = ? WHERE $tableCondition = ?;");
+        $sql->execute([$newValue,$condition]);
+        mysqli_close($db) ;
+    }
 }
