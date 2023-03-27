@@ -4,6 +4,8 @@ import Register from "@/views/RegisterPage.vue"
 import Login from "@/views/LoginPage.vue"
 import SellerPannel from "@/views/SellerPannelPage.vue"
 import AdminPannel from "@/views/AdminPannelPage.vue"
+import Profil from "@/views/ProfilPage.vue"
+
 
 
 
@@ -32,7 +34,12 @@ const routes=[
         path: "/adminPannel",
         name: "adminPannel",
         component: AdminPannel,
-    }
+    },
+    {
+        path: "/profil",
+        name: "profil",
+        component: Profil,
+    },
 
 ]
 
