@@ -8,6 +8,7 @@ import Profil from "@/views/ProfilPage.vue"
 
 
 
+import NewItem from "@/views/NewItemPage.vue"
 
 const routes=[
     {
@@ -40,7 +41,11 @@ const routes=[
         name: "profil",
         component: Profil,
     },
-
+    {
+        path: "/newItem",
+        name: "newItem",
+        component: NewItem,
+    }
 ]
 
 
