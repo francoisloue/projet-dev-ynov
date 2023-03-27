@@ -1,6 +1,6 @@
 <?php
 require_once("./class/dbSetting.php");
-require_once("./class/item.php");
+require_once("./class/newItem.php");
 require_once("./class/category.php");
 $DB = new DBHandler();
 
