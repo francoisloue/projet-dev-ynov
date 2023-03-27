@@ -1,14 +1,14 @@
 <template>
     <div class="container">
         <h1>List of all Users</h1>
-        <div v-for="user in this.users" class="user" v-bind:key="user.id">
+        <div v-for="user in this.users" class="user" v-bind:key="user">
           {{ user }}
           <select>
             <option v-for="userType in this.usersType" v-bind:key="userType.id">
               {{ userType.name }}
             </option>
           </select>
-          <button v-on:click="this.changeUserType()">Confirm</button>
+          <button v-on:click="goToProfil(user.id)">Profile of {{ user.username }}</button>
         </div>
     </div>
   </template>
@@ -28,16 +28,14 @@
             const req = await axios.get("http://localhost/projet-dev-ynov/projet-dev-back/getAllUsers.php",JSON.stringify())
             this.users = await req.data
         },
-        async getAllUserType(){
-          const req = await axios.get("http://localhost/projet-dev-ynov/projet-dev-back/getAllUserType.php",JSON.stringify())
-          this.usersType = await req.data
-        },
         async changeUserType(idUser,idUserType){
           console.log(idUser,idUserType)
+        },
+        async goToProfil(idUser){
+          this.$router.push({ path: '/profil', query: { id: idUser }})
         }
     },
     async mounted(){
-        await this.getAllUserType();
         await this.getAllUsers();
     },
     watch:{

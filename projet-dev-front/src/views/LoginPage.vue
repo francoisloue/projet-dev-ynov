@@ -28,6 +28,13 @@ export default {
 </script>
 
 <style>
-
-
+.container{
+  padding-top: 10%;
+    display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      align-content: stretch;
+  }
 </style>
