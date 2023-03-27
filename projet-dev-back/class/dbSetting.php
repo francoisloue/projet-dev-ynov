@@ -61,7 +61,7 @@ class DBHandler
         return $result->fetch_assoc();
     }
 
-    public function getInDB(string $toSelect, string $table, string|null $rowToSearch, string|int|null $condition){
+    public function getInDB(string $toSelect, string $table, string $rowToSearch=null, string|int $condition=null){
         $db = $this->connect();
         $query = "";
         if(is_null($rowToSearch))$query = "SELECT $toSelect FROM `$table`";
