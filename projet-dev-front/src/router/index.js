@@ -2,6 +2,8 @@ import { createWebHistory, createRouter } from "vue-router"
 import App from "@/views/App.vue"
 import Register from "@/views/RegisterPage.vue"
 import Login from "@/views/LoginPage.vue"
+import SellerPannel from "@/views/SellerPannelPage.vue"
+import AdminPannel from "@/views/AdminPannelPage.vue"
 
 
 
@@ -21,6 +23,17 @@ const routes=[
         name: "login",
         component: Login,
     },
+    {
+        path:"/sellerPannel",
+        name: "sellerPannel",
+        component: SellerPannel,
+    },
+    {
+        path: "/adminPannel",
+        name: "adminPannel",
+        component: AdminPannel,
+    }
+
 ]
 
 

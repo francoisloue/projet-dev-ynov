@@ -29,8 +29,7 @@ export default {
       }))
       const res = await req.data
       if(res != false || res!="error"){
-        console.log(res);
-        console.log("sucessfull login")
+        localStorage.setItem("userID",res)
       }else{
         console.log("Bad password")
       }  
