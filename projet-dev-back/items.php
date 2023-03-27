@@ -27,5 +27,5 @@ switch ($request_method) {
         $itemPrice = $decode["itemPrice"];
         $newItem = new  Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
     case ("GET"):
-        echo(print_r($DB->getAllFromTable("items"),JSON_PRETTY_PRINT));
+        print_r($DB->getAllFromTable("items"));
 }
