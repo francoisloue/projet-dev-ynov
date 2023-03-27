@@ -44,7 +44,7 @@ export default {
                     "itemPrice": this.itemPrice,
                     "itemImageURL": this.itemImageURL
                 });
-                const toCreate = axios.post("http://localhost/items.php", data)
+                const toCreate = axios.post("http://localhost/items", data)
                 const res = await toCreate.data
                 console.log(await res)
             }
