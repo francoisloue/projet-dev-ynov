@@ -82,4 +82,19 @@ class DBHandler
         $sql->execute([$newValue,$condition]);
         mysqli_close($db) ;
     }
+
+    public function getAllRandomn(string $column,string $table,int $number){
+        $db->this.connect();
+        $sql = $db->prepare("
+        SELECT $column FROM $table  
+        ORDER BY RAND ( )  
+        LIMIT $number  
+        ");
+        $sql->execute();
+        $resultQuery = $sql->get_result();
+        $arrayData = [];
+        while($row = mysqli_fetch_assoc($resultQuery))array_push($arrayData,$row);
+        mysqli_close($db) ;
+        return $arrayData;
+    }
 }
