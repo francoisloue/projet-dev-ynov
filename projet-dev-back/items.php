@@ -1,5 +1,4 @@
 <?php
-$f = fopen("test.txt","w");
 try{
     header('Content-type: text/javascript');
     require_once("class/dbSetting.php");
@@ -9,7 +8,8 @@ try{
 
     $DB = new DBHandler();
     
-    $request_URI = explode("/", $_SERVER["REQUEST_URI"]);
+    $request_error = "You've got a wrong id or research";
+    $request_URI = $_SESSION["request"];
     $request_method = $_SERVER["REQUEST_METHOD"];
     switch ($request_method) {
         case ("POST"):
@@ -19,7 +19,7 @@ try{
             if ($decode["itemDescription"] != "") {
                 $itemDescription = $decode["itemDescription"];
             }
-            if ($decode["itemImageURL"]) {
+            if ($decode["itemImageURL"]!= "") {
                 $itemIllustration = $decode["itemImageURL"];
             }
             if (is_null($category = $DB->getFromDbByParam("category", "name", $decode["itemCategory"]))) {
@@ -31,10 +31,26 @@ try{
             $itemPrice = $decode["itemPrice"];
             $newItem = new  Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
         case ("GET"):
-            echo(json_encode($DB->getInDB("*","items")));
+            if (count($request_URI)>2) {
+                if (intval($request_URI[2]) != 0) {
+                    echo(json_encode($DB->getFromDbByParam("items","id", intval($request_URI[2]))));
+                } else {
+                    switch ($request_URI[2]) {
+                        case("category"):
+                            if (intval($request_URI[3]) != 0) {
+                                echo(json_encode($DB->getInDB("*", "items", "categoryID", $request_URI[3])));
+                            } else {
+                                echo json_encode($request_error);
+                            }
+                    }
+                    
+                }
+            } else {
+                echo(json_encode($DB->getInDB("*","items")));
+            }
     }
 }catch(ERROR $e){
-    fwrite($f,$e);
+    echo false;
 }catch(Exception $e){
-    fwrite($f,$e);
+    echo false;
 }
