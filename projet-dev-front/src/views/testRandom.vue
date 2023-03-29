@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div v-for="rand in random">
+        <div v-for="rand in random" v-bind:key="rand.id">
             {{ rand }}
         </div>
     </div>
@@ -9,7 +9,6 @@
   
   <script>
   import axios from 'axios'
-import { getRandomValues } from 'crypto';
   export default {
     data(){
       return{
@@ -18,10 +17,12 @@ import { getRandomValues } from 'crypto';
     },
     methods:{
         async getRandom(){
-            axios.post("",{
+            const req = await axios.post("http://localhost/projet-dev-ynov/projet-dev-back/getRandomItems.php",{
                 idCategory: 1,
                 quantity: 5,
             })
+            const res = await req.data
+            this.random = res
         }
     },
     async mounted(){
