@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="input-register">
       <h1>Register</h1>
       <label for="mail">mail :</label>  
-      <input id="email" type="text" v-model="email">
+      <input id="email" type="text" v-model="mail">
       <label for="username">username :</label>  
       <input id="username" type="text" v-model="username">
       <label for="password">Password :</label>  
@@ -23,7 +23,7 @@ export default {
   data(){
     return{
         username:"",
-        email:"",
+        mail:"",
         password:"",
         confirmPassword:"",
         address:"",
@@ -32,14 +32,14 @@ export default {
   },
   methods:{
     async register(){
-      if(!this.username||!this.password||!this.email||!this.address||(this.typeID==2 && !this.storeName)){
+      if(!this.username||!this.password||!this.mail||!this.address){
         this.errorMessage="Please fill all fields ."
       }
       else{
         const post = await axios.post("http://localhost/projet-dev-ynov/projet-dev-back/createUser.php",JSON.stringify({
             "username": this.username,
             "password":this.password,
-            "email":this.email,
+            "mail":this.mail,
             "address":this.address,
         }))
         const res = await post.data

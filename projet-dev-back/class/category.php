@@ -1,5 +1,6 @@
 <?php
 require_once ("dbSetting.php");
+require_once ("./header.php");
 class Category extends DBHandler {
     private $itemName;
 
