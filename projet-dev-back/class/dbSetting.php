@@ -83,13 +83,14 @@ class DBHandler
         mysqli_close($db) ;
     }
 
-    public function getAllRandomn(string $column,string $table,int $number){
-        $db->this.connect();
-        $sql = $db->prepare("
-        SELECT $column FROM $table  
-        ORDER BY RAND ( )  
-        LIMIT $number  
-        ");
+    public function getAllRandomn(int $quantity,int $idCategory){
+        $db = $this->connect();
+            $sql = $db->prepare("
+            SELECT * FROM items  
+            WHERE categoryID = $idCategory  
+            ORDER BY RAND ( )  
+            LIMIT $quantity
+            ");
         $sql->execute();
         $resultQuery = $sql->get_result();
         $arrayData = [];
