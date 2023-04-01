@@ -36,7 +36,7 @@ export default {
         this.errorMessage="Please fill all fields ."
       }
       else{
-        const post = await axios.post("http://localhost/projet-dev-ynov/projet-dev-back/createUser.php",JSON.stringify({
+        const post = await axios.post("http://localhost/users/register",JSON.stringify({
             "username": this.username,
             "password":this.password,
             "mail":this.mail,

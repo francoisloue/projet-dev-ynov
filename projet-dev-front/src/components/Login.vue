@@ -23,7 +23,7 @@ export default {
   },
   methods:{
     async login(){
-      const req = await axios.post("http://localhost/projet-dev-ynov/projet-dev-back/login.php",JSON.stringify({
+      const req = await axios.post("http://localhost/users/login",JSON.stringify({
         "mail":this.mail,
         "password":this.password,
       }))
