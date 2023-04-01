@@ -17,7 +17,6 @@ try{
             $decode = json_decode($encoded, true);
             if (count($request_URI)>2){
                 if (intval($request_URI[2]) != 0) {
-                    echo("can't acces to all users buddy");
                 }else{
                     switch($request_URI[2]){
                         case("login"):
@@ -31,7 +30,7 @@ try{
                                 echo("false");
                             }
                             break;
-                            
+
                         case("register"):
                             $username = $decode["username"];
                             $mail = $decode["mail"];
@@ -52,6 +51,14 @@ try{
 
                     }
                 }
+            }
+        case "GET":
+            if(count($request_URI)>2){
+                if (intval($request_URI[2]) != 0){
+                    echo(json_encode($DB->getInDB("*","user","id",$request_URI[2])));
+                }
+            }else{
+                echo(json_encode($DB->getInDB("*","user")));
             }
         }
 }catch(ERROR $e){
