@@ -55,7 +55,12 @@ try{
         case "GET":
             if(count($request_URI)>2){
                 if (intval($request_URI[2]) != 0){
-                    echo(json_encode($DB->getInDB("*","user","id",$request_URI[2])));
+                    $result = $DB->getInDB("*","user","id",$request_URI[2]);
+                    if(count($result)>0){
+                        echo(json_encode($result));
+                    }else{
+                        echo("No user with this ID found");
+                    }
                 }
             }else{
                 echo(json_encode($DB->getInDB("*","user")));
