@@ -1,13 +1,13 @@
 <?php
+$f = fopen("test.txt","w");
 try{
     header('Content-type: text/javascript');
     require_once("class/dbSetting.php");
-    require_once("class/newItem.php");
+    require_once("class/user.php");
     require_once("class/category.php");
     require_once("./header.php");
 
     $DB = new DBHandler();
-    
     $request_error = "You've got a wrong id or research";
     $request_URI = $_SESSION["request"];
     $request_method = $_SERVER["REQUEST_METHOD"];
@@ -30,6 +30,8 @@ try{
                             }else{
                                 echo("false");
                             }
+                            break;
+                            
                         case("register"):
                             $username = $decode["username"];
                             $mail = $decode["mail"];
@@ -38,18 +40,24 @@ try{
                             $user = new User($username,$password,$mail,new DateTime(),$address);
                             $idUser = $user->addEmployee();
                             echo($idUser);
+                            break;
+
                         case("changeType"):
                             $userId = $decode["userId"];
                             $userType = $decode["userType"];
                             $db = new DBHandler();
                             $db->updateInDB("user","userType",$userType,"id",$userId);
                             echo(true);
+                            break;
+
                     }
                 }
             }
         }
 }catch(ERROR $e){
+    fwrite($f,$e);
     echo "error";
 }catch(Exception $e){
+    fwrite($f,$e);
     echo "error";
 }
