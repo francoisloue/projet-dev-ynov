@@ -41,14 +41,6 @@ try{
                             echo($idUser);
                             break;
 
-                        case("changeType"):
-                            $userId = $decode["userId"];
-                            $userType = $decode["userType"];
-                            $db = new DBHandler();
-                            $db->updateInDB("user","userType",$userType,"id",$userId);
-                            echo(true);
-                            break;
-
                     }
                 }
             }
@@ -78,6 +70,21 @@ try{
                 }
             }else{
                 echo(json_encode($DB->getInDB("*","user")));
+            }
+            break;
+        case "PUT" :
+            $encoded = file_get_contents("php://input");
+            $decode = json_decode($encoded, true);
+            if(count($request_URI)>2){
+                switch($request_URI[2]){
+                    case "changeType":
+                        $userId = $decode["userId"];
+                        $userType = $decode["userType"];
+                        $db = new DBHandler();
+                        $db->updateInDB("user","userType",$userType,"id",$userId);
+                        echo(true);
+                        break;
+                }
             }
         }
 }catch(ERROR $e){

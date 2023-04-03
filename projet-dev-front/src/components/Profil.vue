@@ -11,7 +11,6 @@
                     <option v-for="typeUser in userTypes"  v-bind:value="typeUser.id" v-bind:key="typeUser.id">{{ typeUser.name }}</option>
                 </select>
                 <button v-on:click="this.changeUserType()">Confirm</button>
-                {{chosenType}}
             </div>
         </ul>
     </div>
@@ -41,12 +40,12 @@ export default {
           this.userTypes = await req.data
     },
     async changeUserType(){
-        console.log(this.userInfo.id)
-        const req = await axios.post("http://localhost/projet-dev-ynov/projet-dev-back/changeUserType.php",{
+        const req = await axios.put("http://localhost/users/changeType",{
             "userId": this.userInfo.id,
             "userType": this.chosenType,
         })
-        console.log(req)
+        const res = await req.data
+        if(res==true)console.log("completely changed")
     },
 },
     async mounted(){
