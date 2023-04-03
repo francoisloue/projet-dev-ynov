@@ -25,7 +25,7 @@
     },
     methods:{
         async getAllUsers(){
-            const req = await axios.get("http://localhost/projet-dev-ynov/projet-dev-back/getAllUsers.php",JSON.stringify())
+            const req = await axios.get("http://localhost/users",JSON.stringify())
             this.users = await req.data
         },
         async changeUserType(idUser,idUserType){

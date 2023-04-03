@@ -32,15 +32,12 @@ export default {
   },
   methods:{
     async getAllInfoUser(){
-        const req = axios.post("http://localhost/projet-dev-ynov/projet-dev-back/getUserInfo.php",{
-            "idUser":this.idFromQuery,
-        })
+        const req = axios.get("http://localhost/users/" + this.idFromQuery)
         const res = await (await req).data
-        this.userInfo = await res
-        console.log(this.userInfo)
+        this.userInfo = await res[0]
     },
     async getAllUserType(){
-          const req = await axios.get("http://localhost/projet-dev-ynov/projet-dev-back/getAllUserType.php")
+          const req = await axios.get("http://localhost/users/userType")
           this.userTypes = await req.data
     },
     async changeUserType(){
