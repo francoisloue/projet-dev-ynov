@@ -37,8 +37,15 @@ try{
                 } else {
                     switch ($request_URI[2]) {
                         case("category"):
+                            
                             if (intval($request_URI[3]) != 0) {
                                 echo(json_encode($DB->getInDB("*", "items", "categoryID", $request_URI[3])));
+                            } else {
+                                echo json_encode($request_error);
+                            }
+                        case("randomCategory"):
+                            if (intval($request_URI[3]) != 0) {
+                                echo(json_encode($DB->getAllRandomn(5, $request_URI[3])));
                             } else {
                                 echo json_encode($request_error);
                             }
