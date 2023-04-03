@@ -61,6 +61,20 @@ try{
                     }else{
                         echo("No user with this ID found");
                     }
+                }else{
+                    switch($request_URI[2]){
+                        case "userType":
+                            if(count($request_URI)>3){
+                                $result = $DB->getInDB("*","usertype","id",$request_URI[3]);
+                                if(intval($request_URI[3])!=0){
+                                    echo(json_encode($result));
+                                }else{
+                                    echo("No userType with this ID");
+                                }
+                            }else{
+                                echo(json_encode($DB->getInDB("*","usertype")));
+                            }
+                    }
                 }
             }else{
                 echo(json_encode($DB->getInDB("*","user")));
