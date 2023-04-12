@@ -6,6 +6,7 @@ import SellerPannel from "@/views/SellerPannelPage.vue"
 import AdminPannel from "@/views/AdminPannelPage.vue"
 import Profil from "@/views/ProfilPage.vue"
 import testRandom from "@/views/testRandom.vue"
+import NewCategory from "@/views/NewCategory.vue"
 import NewItem from "@/views/NewItemPage.vue"
 
 const routes=[
@@ -48,6 +49,11 @@ const routes=[
         path: "/testRandom",
         name: "testRandom",
         component: testRandom,
+    },
+    {
+        path: "/newCategory",
+        name: "newCategory",
+        component: NewCategory
     }
 ]
 
