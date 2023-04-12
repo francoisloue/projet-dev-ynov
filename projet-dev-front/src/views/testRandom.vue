@@ -17,10 +17,7 @@
     },
     methods:{
         async getRandom(){
-            const req = await axios.post("http://localhost/projet-dev-ynov/projet-dev-back/getRandomItems.php",{
-                idCategory: 1,
-                quantity: 5,
-            })
+            const req = await axios.get("http://localhost/items/randomCategory/1")
             const res = await req.data
             this.random = res
         }
