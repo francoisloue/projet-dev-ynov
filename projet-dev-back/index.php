@@ -12,6 +12,9 @@ switch ($request[1]) {
     case "users":
         require __DIR__ . '/user.php';
         break;
+    case "category":
+        require __DIR__ . '/category.php';
+        break;
     default:
         break;
 }

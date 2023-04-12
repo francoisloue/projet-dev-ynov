@@ -11,25 +11,17 @@ try {
     $request_error = "You've got a wrong id or research";
     $request_URI = $_SESSION["request"];
     $request_method = $_SERVER["REQUEST_METHOD"];
+
     switch ($request_method) {
         case ("POST"):
             $encoded = file_get_contents("php://input");
             $decode = json_decode($encoded, true);
-            $itemName = $decode["itemName"];
-            if ($decode["itemDescription"] != "") {
-                $itemDescription = $decode["itemDescription"];
-            }
-            if ($decode["itemImageURL"]!= "") {
-                $itemIllustration = $decode["itemImageURL"];
-            }
-            if (is_null($category = $DB->getFromDbByParam("category", "name", $decode["itemCategory"]))) {
-                $newCategory = new Category($decode["itemCategory"]);
-                $itemCategory = $DB->getFromDbByParam("category", "name", $decode["itemCategory"])["id"];
+            $categoryName = $decode["categoryName"];
+            if (is_null($category = $DB->getFromDbByParam("category", "name", $categoryName))) {
+                $newCategory = new Category($categoryName);
             } else {
-                $itemCategory = $category["id"];
+                echo(json_encode("This Category already exist"));
             }
-            $itemPrice = $decode["itemPrice"];
-            $newItem = new  Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
         case ("GET"):
             if (count($request_URI)>2) {
                 if (intval($request_URI[2]) != 0) {
@@ -46,7 +38,7 @@ try {
                     
                 }
             } else {
-                echo(json_encode($DB->getInDB("*","items")));
+                echo(json_encode($DB->getInDB("*","category")));
             }
     }
 } catch(ERROR $e){
