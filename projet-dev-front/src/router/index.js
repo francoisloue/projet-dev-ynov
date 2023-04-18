@@ -8,6 +8,9 @@ import Profil from "@/views/ProfilPage.vue"
 import testRandom from "@/views/testRandom.vue"
 import NewCategory from "@/views/NewCategory.vue"
 import NewItem from "@/views/NewItemPage.vue"
+import AllItems from "@/views/AllItemsPage.vue"
+import ItemPage from "@/views/ItemProfilPage.vue"
+import CartPage from "@/views/CartPage.vue"
 
 const routes=[
     {
@@ -54,6 +57,21 @@ const routes=[
         path: "/newCategory",
         name: "newCategory",
         component: NewCategory
+    },
+    {
+        path: "/allItems",
+        name: "allItems" ,
+        component: AllItems,
+    },
+    {
+        path: "/itemProfil",
+        name : "itemProfil",
+        component: ItemPage,
+    },
+    {
+        path: "/cart",
+        name: "cart",
+        component: CartPage,
     }
 ]
 

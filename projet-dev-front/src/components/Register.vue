@@ -47,6 +47,9 @@ export default {
       }
     }
   },
+  async mounted(){
+    if(localStorage.getItem("userID")!="null")this.$router.push("/allItems");
+  },
   watch:{
 
   }
