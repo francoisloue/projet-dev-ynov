@@ -15,6 +15,9 @@ switch ($request[1]) {
     case "category":
         require __DIR__ . '/category.php';
         break;
+    case "cart" :
+        require __DIR__ . '/cart.php';
+        break;
     default:
         break;
 }

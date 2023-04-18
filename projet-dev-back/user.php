@@ -23,9 +23,14 @@ try{
                             $mail = $decode["mail"];
                             $password = $decode["password"];
                             $db = new DBHandler();
-                            $data = $db->getInDB("password,userType,id","user","mail",$mail)[0];
-                            if(password_verify($password,$data["password"])){
-                                echo($data["id"]);
+                            $data = $db->getInDB("password,userType,id","user","mail",$mail);
+                            fwrite($f,json_encode($data));
+                            if(count($data)>0){
+                                if(password_verify($password,$data["password"])){
+                                    echo($data[0]["id"]);
+                                }else{
+                                    echo("false");
+                                }
                             }else{
                                 echo("false");
                             }
