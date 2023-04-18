@@ -21,7 +21,7 @@ try {
                 $newCategory = new Category($categoryName);
             } else {
                 echo(json_encode("This Category already exist"));
-            }
+            }   
         case ("GET"):
             if (count($request_URI)>2) {
                 if (intval($request_URI[2]) != 0) {
@@ -30,7 +30,7 @@ try {
                     switch ($request_URI[2]) {
                         case("category"):
                             if (intval($request_URI[3]) != 0) {
-                                echo(json_encode($DB->getInDB("*", "items", "categoryID", $request_URI[3])));
+                                echo(json_encode($DB->getInDB("*", "category", "categoryID", $request_URI[3])));
                             } else {
                                 echo json_encode($request_error);
                             }

@@ -18,18 +18,22 @@ try {
             $itemName = $decode["itemName"];
             if ($decode["itemDescription"] != "") {
                 $itemDescription = $decode["itemDescription"];
+            } else {
+                $itemDescription = null;
             }
             if ($decode["itemImageURL"]!= "") {
                 $itemIllustration = $decode["itemImageURL"];
+            } else {
+                $itemIllustration = null;
             }
             if (is_null($category = $DB->getFromDbByParam("category", "name", $decode["itemCategory"]))) {
-                $newCategory = new Category($decode["itemCategory"]);
                 $itemCategory = $DB->getFromDbByParam("category", "name", $decode["itemCategory"])["id"];
             } else {
                 $itemCategory = $category["id"];
             }
             $itemPrice = $decode["itemPrice"];
             $newItem = new  Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
+            echo(json_encode("Item created successfully"));
         case ("GET"):
             if (count($request_URI)>2) {
                 if (intval($request_URI[2]) != 0) {

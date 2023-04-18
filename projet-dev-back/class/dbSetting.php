@@ -34,6 +34,7 @@ class DBHandler
         $columns = array_keys($data);
         $values = array_values($data);
         $sql = "INSERT INTO $table (" . implode(',', $columns) . ") VALUES (\"" . implode("\", \"", $values) . "\" )";
+        error_log($sql);
         $stmt = $con->prepare($sql);
         if (($stmt = $con->prepare($sql))) {
             $stmt->execute();
