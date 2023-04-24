@@ -11,8 +11,14 @@ import NewItem from "@/views/NewItemPage.vue"
 import AllItems from "@/views/AllItemsPage.vue"
 import ItemPage from "@/views/ItemProfilPage.vue"
 import CartPage from "@/views/CartPage.vue"
+import RedirectMain from "@/components/RedirectMain.vue"
 
 const routes=[
+    {
+        path: "/",
+        name: "redirect main",
+        component: RedirectMain,
+    },
     {
         path: "/main",
         name: "main",
