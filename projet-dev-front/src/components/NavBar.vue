@@ -2,14 +2,38 @@
   <link rel="stylesheet" href="css/pico.min.css">
     <div class="navbar">
         <ul>
+          <div v-if="!isConnected">
             <li><a href="/login"> Login</a></li>
             <li><a href="/register">Register</a></li>
-            <li><a href="/products">products</a></li>
+          </div>
+          <div v-else>
+            <li><a href="/allItems">Products</a></li>
+            <li><a href="/Cart">Cart</a></li>
+            <li v-on:click="disconnect"><a href="/login">Log Out</a></li>
+          </div>
         </ul>    
     </div>
 </template>
 
 <script>
+  export default {
+    data(){
+      return{
+        isConnected: false, 
+      }
+    },
+    methods:{
+        async disconnect(){
+          localStorage.setItem("userID",null);
+        }
+    },
+    async mounted(){
+        if(localStorage.getItem("userID")!="null")this.isConnected = true
+    },
+    watch:{
+      
+    }
+  }
 </script>
 
 <style>

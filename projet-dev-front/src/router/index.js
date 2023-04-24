@@ -5,10 +5,20 @@ import Login from "@/views/LoginPage.vue"
 import SellerPannel from "@/views/SellerPannelPage.vue"
 import AdminPannel from "@/views/AdminPannelPage.vue"
 import Profil from "@/views/ProfilPage.vue"
+import testRandom from "@/views/testRandom.vue"
 import NewCategory from "@/views/NewCategory.vue"
 import NewItem from "@/views/NewItemPage.vue"
+import AllItems from "@/views/AllItemsPage.vue"
+import ItemPage from "@/views/ItemProfilPage.vue"
+import CartPage from "@/views/CartPage.vue"
+import RedirectMain from "@/components/RedirectMain.vue"
 
 const routes=[
+    {
+        path: "/",
+        name: "redirect main",
+        component: RedirectMain,
+    },
     {
         path: "/main",
         name: "main",
@@ -45,9 +55,29 @@ const routes=[
         component: NewItem,
     },
     {
+        path: "/testRandom",
+        name: "testRandom",
+        component: testRandom,
+    },
+    {
         path: "/newCategory",
         name: "newCategory",
         component: NewCategory
+    },
+    {
+        path: "/allItems",
+        name: "allItems" ,
+        component: AllItems,
+    },
+    {
+        path: "/itemProfil",
+        name : "itemProfil",
+        component: ItemPage,
+    },
+    {
+        path: "/cart",
+        name: "cart",
+        component: CartPage,
     }
 ]
 

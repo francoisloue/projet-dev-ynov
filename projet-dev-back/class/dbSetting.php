@@ -85,4 +85,44 @@ class DBHandler
         $sql->execute([$newValue, $condition]);
         mysqli_close($db);
     }
+
+    public function getAllRandomn(int $quantity,int $idCategory){
+        $db = $this->connect();
+            $sql = $db->prepare("
+            SELECT * FROM items  
+            WHERE categoryID = $idCategory  
+            ORDER BY RAND ( )  
+            LIMIT $quantity
+            ");
+        $sql->execute();
+        $resultQuery = $sql->get_result();
+        $arrayData = [];
+        while($row = mysqli_fetch_assoc($resultQuery))array_push($arrayData,$row);
+        mysqli_close($db) ;
+        return $arrayData;
+    }
+
+    public function delete(string $table, string $rowToSearch,string $condition){
+        $db = $this->connect();
+        $stmt = $db->prepare("DELETE FROM $table WHERE $rowToSearch = ?");
+        $stmt->execute([$condition]);
+        mysqli_close($db) ;
+    }
+
+    public function getCartItems(int $idUser){
+        $db = $this->connect();
+        $sql = $db->prepare("
+        SELECT items.name, itemscart.productID, itemscart.quantity, items.price, items.imageURL,itemscart.id 
+        FROM itemscart 
+        INNER JOIN items 
+        ON itemscart.productID = items.id
+        WHERE itemscart.userID = $idUser
+        ");
+        $sql->execute();
+        $resultQuery = $sql->get_result();
+        $arrayData = [];
+        while($row = mysqli_fetch_assoc($resultQuery))array_push($arrayData,$row);
+        mysqli_close($db) ;
+        return $arrayData;
+    }
 }

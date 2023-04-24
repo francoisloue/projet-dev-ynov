@@ -25,7 +25,7 @@ try {
         case ("GET"):
             if (count($request_URI)>2) {
                 if (intval($request_URI[2]) != 0) {
-                    echo(json_encode($DB->getFromDbByParam("items","id", intval($request_URI[2]))));
+                    echo(json_encode($DB->getFromDbByParam("category","id", intval($request_URI[2]))));
                 } else {
                     switch ($request_URI[2]) {
                         case("category"):
