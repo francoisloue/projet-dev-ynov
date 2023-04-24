@@ -16,23 +16,19 @@ try {
             $encoded = file_get_contents("php://input");
             $decode = json_decode($encoded, true);
             $itemName = $decode["itemName"];
+            $itemDescription = null;
+            $itemIllustration = null;
             if ($decode["itemDescription"] != "") {
                 $itemDescription = $decode["itemDescription"];
-            } else {
-                $itemDescription = null;
             }
             if ($decode["itemImageURL"]!= "") {
                 $itemIllustration = $decode["itemImageURL"];
-            } else {
-                $itemIllustration = null;
             }
-            if (is_null($category = $DB->getFromDbByParam("category", "name", $decode["itemCategory"]))) {
-                $itemCategory = $DB->getFromDbByParam("category", "name", $decode["itemCategory"])["id"];
-            } else {
+            if (!is_null($category = $DB->getFromDbByParam("category", "name", $decode["itemCategory"]))) {
                 $itemCategory = $category["id"];
             }
             $itemPrice = $decode["itemPrice"];
-            $newItem = new  Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
+            $newItem = new Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
             echo(json_encode("Item created successfully"));
         case ("GET"):
             if (count($request_URI)>2) {
