@@ -12,7 +12,7 @@
               <li><a href="/Cart">Cart</a></li>
             </div>
             <div v-else-if="this.userInfo.userType==2">
-              <li><a href="/sellerPannel">Seller Pannel</a></li>
+              <li><a href="/newItem">Seller Pannel</a></li>
             </div>
             <div v-else>
               <li><a href="/adminPannel">Admin Pannel</a></li>
@@ -44,6 +44,7 @@ import axios from 'axios';
           this.userInfo = await res
           console.log(this.userInfo.userType)
         },
+
     },
     async mounted(){
         if(localStorage.getItem("userID")!="null"){

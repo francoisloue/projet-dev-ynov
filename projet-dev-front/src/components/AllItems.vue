@@ -69,11 +69,25 @@ import axios from 'axios'
             this.getAllItems()
           }
         },
+        async redirectUsers(){
+          if("null"!=localStorage.getItem("userID")){
+            const userID = localStorage.getItem("userID")
+            console.log(userID)
+            if(userID==2){
+              this.$router.push({ path: '/newItem'})
+            }else if(userID==999){
+              this.$router.push({ path: '/adminPannel'})
+            }
+          } else {
+            this.$router.push({ path: '/login'})
+          }
+        },
 
     },
     async mounted(){
-        await this.getAllItems();
-        await this.getAllCategories();
+      await this.redirectUsers();
+      await this.getAllItems();
+      await this.getAllCategories();
     },
     watch:{
       categoryFilter(newFilter){

@@ -2,12 +2,9 @@
     <div class="container">
         <h1>List of all Users</h1>
         <div v-for="user in this.users" class="user" v-bind:key="user">
-          {{ user }}
-          <select>
-            <option v-for="userType in this.usersType" v-bind:key="userType.id">
-              {{ userType.name }}
-            </option>
-          </select>
+          <h1>{{ user.username }}</h1>
+          <p>Email: {{ user.mail }}</p>
+          <p>Id: {{ user.id }}</p>
           <button v-on:click="goToProfil(user.id)">Profile of {{ user.username }}</button>
         </div>
     </div>

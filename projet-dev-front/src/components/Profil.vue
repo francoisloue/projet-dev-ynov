@@ -6,6 +6,7 @@
             <li>mail: {{ userInfo.mail }}</li>
             <li>registration Date: {{ userInfo.registrationDate }}</li>
             <li>address: {{ userInfo.address }}</li>
+            <p>Change the type of user with this menu</p>
             <div class="changeUserType">
                 <select v-model="chosenType">
                     <option v-for="typeUser in userTypes"  v-bind:value="typeUser.id" v-bind:key="typeUser.id">{{ typeUser.name }}</option>
@@ -31,9 +32,9 @@ export default {
   },
   methods:{
     async getAllInfoUser(){
-        const req = axios.get("http://localhost/users/" + this.idFromQuery)
-        const res = await (await req).data
-        this.userInfo = await res[0]
+        const req = await axios.get("http://localhost/users/" + this.idFromQuery)
+        const res = await req.data
+        this.userInfo = await res
     },
     async getAllUserType(){
           const req = await axios.get("http://localhost/users/userType")
@@ -47,8 +48,22 @@ export default {
         const res = await req.data
         if(res==true)console.log("completely changed")
     },
+    async redirectUser(){
+        if("null"!=localStorage.getItem("userID")){
+            const userID = localStorage.getItem("userID")
+            console.log(userID)
+            if(userID==2){
+              this.$router.push({ path: '/newItem'})
+            }else if(userID==1){
+                this.$router.push({ path: '/allItems'})
+            }
+          } else {
+            this.$router.push({ path: '/login'})
+          }
+    }
 },
     async mounted(){
+        this.redirectUser();
         this.idFromQuery = this.$route.query.id
         await this.getAllUserType();
         await this.getAllInfoUser()
