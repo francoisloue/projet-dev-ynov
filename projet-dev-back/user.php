@@ -12,7 +12,7 @@ try{
     $request_URI = $_SESSION["request"];
     $request_method = $_SERVER["REQUEST_METHOD"];
     switch ($request_method) {
-        case ("POST"):
+        case "POST":
             $encoded = file_get_contents("php://input");
             $decode = json_decode($encoded, true);
             if (count($request_URI)>2){
@@ -23,13 +23,14 @@ try{
                             $mail = $decode["mail"];
                             $password = $decode["password"];
                             $db = new DBHandler();
-                            $data = $db->getInDB("password,userType,id","user","mail",$mail);
-                            fwrite($f,json_encode($data));
+                            $data = $db->getInDB("*","user","mail",$mail);
                             if(count($data)>0){
-                                if(password_verify($password,$data["password"])){
+                                if(password_verify($password,$data[0]["password"])){
                                     echo($data[0]["id"]);
+                                    break;
                                 }else{
                                     echo("false");
+                                    break;
                                 }
                             }else{
                                 echo("false");
@@ -49,14 +50,17 @@ try{
                     }
                 }
             }
+            break;
         case "GET":
             if(count($request_URI)>2){
                 if (intval($request_URI[2]) != 0){
                     $result = $DB->getInDB("*","user","id",$request_URI[2]);
                     if(count($result)>0){
-                        echo(json_encode($result));
+                        echo(json_encode($result[0]));
+                        break;
                     }else{
                         echo("No user with this ID found");
+                        break;
                     }
                 }else{
                     switch($request_URI[2]){
@@ -65,16 +69,20 @@ try{
                                 $result = $DB->getInDB("*","usertype","id",$request_URI[3]);
                                 if(intval($request_URI[3])!=0){
                                     echo(json_encode($result));
+                                    break;
                                 }else{
                                     echo("No userType with this ID");
+                                    break;
                                 }
                             }else{
                                 echo(json_encode($DB->getInDB("*","usertype")));
+                                break;
                             }
                     }
                 }
             }else{
                 echo(json_encode($DB->getInDB("*","user")));
+                break;
             }
             break;
         case "PUT" :
@@ -94,8 +102,8 @@ try{
         }
 }catch(ERROR $e){
     fwrite($f,$e);
-    echo "error";
+    echo "Error";
 }catch(Exception $e){
     fwrite($f,$e);
-    echo "error";
+    echo "Exce^ption";
 }

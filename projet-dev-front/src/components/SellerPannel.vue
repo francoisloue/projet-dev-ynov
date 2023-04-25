@@ -49,7 +49,7 @@
       
     },
     async mounted(){
-      console.log(localStorage.getItem("userID"))
+      
     },
     watch:{
       

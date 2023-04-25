@@ -21,6 +21,7 @@
       return{
         users:[],
         usersType:[],
+        currentUser:{},
       }
     },
     methods:{
@@ -33,10 +34,25 @@
         },
         async goToProfil(idUser){
           this.$router.push({ path: '/profil', query: { id: idUser }})
-        }
+        },
+        async getInfoCurrentUser(){
+          if(localStorage.getItem("userID")){
+            const req = await axios.get("http://localhost/users/" + localStorage.getItem("userID"))
+            const res = await req.data
+
+            // if the user is not a Admin, redirect to All item page
+            if(res.userType!=999){
+              this.$router.push({ path: '/allItems' })
+            }
+            this.currentUser = await res
+          } else {
+            this.$router.push({ path: '/login' })
+          }
+        },
     },
     async mounted(){
-        await this.getAllUsers();
+      await this.getInfoCurrentUser();
+      await this.getAllUsers();
     },
     watch:{
       
