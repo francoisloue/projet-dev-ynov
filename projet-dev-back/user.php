@@ -1,5 +1,4 @@
 <?php
-$f = fopen("test.txt","w");
 try{
     header('Content-type: text/javascript');
     require_once("class/dbSetting.php");
@@ -24,7 +23,7 @@ try{
                             $password = $decode["password"];
                             $db = new DBHandler();
                             $data = $db->getInDB("password,userType,id","user","mail",$mail);
-                            fwrite($f,json_encode($data));
+                            error_log(print_r($data));
                             if(count($data)>0){
                                 if(password_verify($password,$data["password"])){
                                     echo($data[0]["id"]);
@@ -45,7 +44,6 @@ try{
                             $idUser = $user->addEmployee();
                             echo($idUser);
                             break;
-
                     }
                 }
             }
@@ -93,9 +91,7 @@ try{
             }
         }
 }catch(ERROR $e){
-    fwrite($f,$e);
-    echo "error";
+    echo "error: ". $e;
 }catch(Exception $e){
-    fwrite($f,$e);
-    echo "error";
+    echo "error: ".$e;
 }

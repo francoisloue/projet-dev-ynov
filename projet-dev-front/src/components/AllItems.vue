@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div id="container">
         <div class="card" v-for="item in this.items" v-bind:key="item.id">
             <div class="card-image">
                 <img v-bind:src="item.imageURL" alt="Product Image">
@@ -13,7 +13,7 @@
                 <button v-on:click="goToItemPage(item.id)">More Info</button>
                 <button v-on:click="addToCart(item.id)">Add To Cart</button>
             </div>
-    </div>
+        </div>
     </div>
 </template>
 
@@ -57,15 +57,15 @@ import axios from 'axios'
 </script>
 
 <style>
-.container{
+div[id="container"]{
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: center;
 	align-items: stretch;
 	align-content: stretch;
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .card {
   border: 1px solid #ccc;
