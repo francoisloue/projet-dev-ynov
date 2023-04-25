@@ -30,6 +30,7 @@ try {
             }
             $itemPrice = $decode["itemPrice"];
             $newItem = new  Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
+            break;
         case ("GET"):
             if (count($request_URI)>2) {
                 if (intval($request_URI[2]) != 0) {
@@ -37,24 +38,26 @@ try {
                 } else {
                     switch ($request_URI[2]) {
                         case("category"):
-                            
                             if (intval($request_URI[3]) != 0) {
                                 echo(json_encode($DB->getInDB("*", "items", "categoryID", $request_URI[3])));
                             } else {
                                 echo json_encode($request_error);
                             }
+                            break;
                         case("randomCategory"):
                             if (intval($request_URI[3]) != 0) {
                                 echo(json_encode($DB->getAllRandomn(5, $request_URI[3])));
                             } else {
                                 echo json_encode($request_error);
                             }
+                            break;
                     }
                     
                 }
             } else {
                 echo(json_encode($DB->getInDB("*","items")));
             }
+            break;
     }
 } catch(ERROR $e){
     echo false;
