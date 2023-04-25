@@ -92,7 +92,7 @@ export default {
       if (!this.itemName || !this.itemPrice) {
         this.errorMessage = "One of the required fields is empty";
       } else {
-        if (!this.categoryName || this.itemCategory) {
+        if (!this.categoryName && !this.itemCategory) {
           this.categoryErrorMessage =
             "Please specify a category or create a new one";
         } else if (this.categoryName) {

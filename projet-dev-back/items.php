@@ -24,9 +24,7 @@ try {
             if ($decode["itemImageURL"]!= "") {
                 $itemIllustration = $decode["itemImageURL"];
             }
-            if (!is_null($category = $DB->getFromDbByParam("category", "name", $decode["itemCategory"]))) {
-                $itemCategory = $category["id"];
-            }
+            $itemCategory=$decode["itemCategory"];
             $itemPrice = $decode["itemPrice"];
             $newItem = new Item($itemName, $itemDescription, $itemPrice, $itemCategory, $itemIllustration);
             echo(json_encode("Item created successfully"));
