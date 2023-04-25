@@ -3,7 +3,7 @@
         <div class="info">
             <h1>{{ item.name }}</h1>
             <img v-bind:src="item.imageURL" v-bind:alt="item.name +' image' "/>
-            <p>Price : {{ item.price }}</p>
+            <p>Price: {{ item.price }}</p>
             <p>Description: {{ item.description }}</p>
             <p>Category: {{ category.name }}</p>
             <button>Add To Cart</button>
