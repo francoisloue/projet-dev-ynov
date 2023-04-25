@@ -1,15 +1,23 @@
 <template>
-    <div id="container">
+  <div class="filterPart">
+    <h1>Filter by Category</h1>
+    <select v-model="this.categoryFilter">
+          <option selected>No Filter</option>
+          <option  v-for="category in this.categories" v-bind:key="category.id" v-bind:value="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+  </div>
+    <div class="allItems">
         <div class="card" v-for="item in this.items" v-bind:key="item.id">
             <div class="card-image">
                 <img v-bind:src="item.imageURL" alt="Product Image">
             </div>
             <div class="card-content">
                 <h2 class="card-title">{{ item.name }}</h2>
-                <p class="card-price">{{ item.price }}</p>
+                <p class="card-price">{{ item.price }}€</p>
             </div>
             <div class="button-section">
-                {{ item.id }}
                 <button v-on:click="goToItemPage(item.id)">More Info</button>
                 <button v-on:click="addToCart(item.id)">Add To Cart</button>
             </div>
@@ -23,6 +31,8 @@ import axios from 'axios'
     data(){
       return{
         items:[],
+        categories: [],
+        categoryFilter: "",
       }
     },
     methods:{
@@ -30,7 +40,6 @@ import axios from 'axios'
             const req = await axios.get("http://localhost/items");
             const res = await req.data
             this.items = await res;
-            console.log(this.items)
         },
         async goToItemPage(idItem){
           this.$router.push({ path: '/itemProfil', query: { id: idItem }})
@@ -44,28 +53,48 @@ import axios from 'axios'
             const req = await axios.post("http://localhost/cart",data);
             const res = await req.data;
             console.log(await res)
-        }
+        },
+        async getAllCategories(){
+          const req = await axios.get("http://localhost/category")
+          const res = await req.data
+          this.categories = res
+        },
+
+        async SetFilter(){
+          if(!isNaN(parseInt(this.categoryFilter))){
+            const req = await axios.get("http://localhost/items/category/"+this.categoryFilter)
+            const res = await req.data
+            this.items = await res
+          } else {
+            this.getAllItems()
+          }
+        },
+
     },
     async mounted(){
         await this.getAllItems();
-        console.log(localStorage.getItem("userID"))
+        await this.getAllCategories();
     },
     watch:{
-      
+      categoryFilter(newFilter){
+        this.categoryFilter = newFilter
+        this.SetFilter()
+      }
     }
   }
 </script>
 
 <style>
-div[id="container"]{
+.allItems{
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: center;
 	align-items: stretch;
 	align-content: stretch;
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
+    margin-top: 5%;
 }
 .card {
   border: 1px solid #ccc;
@@ -113,4 +142,7 @@ div[id="container"]{
   margin: 10px 0 0 0;
 }
 
+.filterPart{
+  margin-top: 10%;
+}
 </style>

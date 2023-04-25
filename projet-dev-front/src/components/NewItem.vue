@@ -119,6 +119,7 @@ export default {
         const res = await toCreate.data;
         console.log(await res);
       }
+      this.$router.push({ path: '/allItems'})
     },
 
     async CreatNewCategory() {

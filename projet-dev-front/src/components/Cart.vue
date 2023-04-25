@@ -1,14 +1,20 @@
 <template>
     <div class="container">
-        <h1>Your Cart</h1>
-        <div class="cart" v-for="item in this.items" v-bind:key="item.id">
-            <h1 v-on:click="this.goToArticle(item.productID)">Go to profil Item</h1>
-            <p>name : {{ item.name }}</p>
-            <p>quantity {{ item.quantity }}</p>
-            <p>unit price : {{ item.price }}</p>
-            <button v-on:click="this.removeArticle(item.id)">Remove</button>
+        <div v-if="this.items.length">
+            <div class="cart" v-for="item in this.items" v-bind:key="item.id">
+                <h1>Your Cart</h1>
+                <h1 v-on:click="this.goToArticle(item.productID)">Go to profil Item</h1>
+                <p>name : {{ item.name }}</p>
+                <p>quantity {{ item.quantity }}</p>
+                <p>unit price : {{ item.price }}</p>
+                <button v-on:click="this.removeArticle(item.id)">Remove</button>
+            </div>
+            <h1>Total Cart : {{ this.totalPrice }}</h1>
         </div>
-        <h1>Total Cart : {{ this.totalPrice }}</h1>
+        <div v-else>
+            <h1>No Item for now</h1>
+            <button v-on:click="goShopping">Start Shopping Now</button>
+        </div>
     </div>
 </template>
 
@@ -35,12 +41,15 @@ import axios from 'axios'
         async removeArticle(idItem){
             const req = await axios.delete("http://localhost/cart/" + idItem);
             const res = await req.data;
-            console.log(res);
-            this.getAllItems();
+            if(res==true)this.getAllItems();
+            
         },
         async calcTotalPrice(){
             this.totalPrice = 0;
             this.items.forEach(item=>this.totalPrice+=item.price)
+        },
+        async goShopping(){
+            this.$router.push({ path: '/allItems'})
         }
     },
     async mounted(){
