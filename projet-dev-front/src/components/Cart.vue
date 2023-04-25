@@ -35,6 +35,7 @@ import axios from 'axios'
         async removeArticle(idItem){
             const req = await axios.delete("http://localhost/cart/" + idItem);
             const res = await req.data;
+            console.log(res);
             this.getAllItems();
         },
         async calcTotalPrice(){
