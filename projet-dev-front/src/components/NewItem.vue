@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     async CreatNewItem() {
-      if (!this.itemName || !this.itemPrice) {
+      if (!this.itemName || !this.itemPrice || !this.itemCategory && !this.categoryName) {
         this.errorMessage = "One of the required fields is empty";
       } else {
         if (!this.categoryName && !this.itemCategory) {
@@ -104,10 +104,10 @@ export default {
             if (element.name == this.categoryName) {
               this.itemCategory = element.id;
             }
-            console.log(this.itemCategory, this.categoryName);
           });
-          console.log(this.itemCategory, this.categoryName);
+          console.log("Here" + this.itemCategory);
         }
+        console.log(this.itemCategory);
         let data = JSON.stringify({
           itemName: this.itemName,
           itemDescription: this.itemDescription,
@@ -119,6 +119,7 @@ export default {
         const res = await toCreate.data;
         console.log(await res);
       }
+      this.$router.push({ path: '/allItems'})
     },
 
     async CreatNewCategory() {
@@ -210,7 +211,7 @@ div[id="newCategory"] {
   min-width: 25%;
   display: flex;
   flex-direction: column;
-  
+
 }
 
 .card-image {

@@ -17,12 +17,13 @@ try {
             $decode = json_decode($encoded, true);
             $itemName = $decode["itemName"];
             $itemDescription = null;
-            $itemIllustration = null;
             if ($decode["itemDescription"] != "") {
                 $itemDescription = $decode["itemDescription"];
             }
             if ($decode["itemImageURL"]!= "") {
                 $itemIllustration = $decode["itemImageURL"];
+            } else {
+                $itemIllustration = "https://cdn0.iconfinder.com/data/icons/cosmo-layout/40/box-512.png";
             }
             $itemCategory=$decode["itemCategory"];
             $itemPrice = $decode["itemPrice"];

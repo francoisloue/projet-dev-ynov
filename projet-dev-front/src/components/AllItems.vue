@@ -15,7 +15,7 @@
             </div>
             <div class="card-content">
                 <h2 class="card-title">{{ item.name }}</h2>
-                <p class="card-price">{{ item.price }}</p>
+                <p class="card-price">{{ item.price }}€</p>
             </div>
             <div class="button-section">
                 <button v-on:click="goToItemPage(item.id)">More Info</button>
