@@ -5,8 +5,6 @@ import Login from "@/views/LoginPage.vue"
 import SellerPannel from "@/views/SellerPannelPage.vue"
 import AdminPannel from "@/views/AdminPannelPage.vue"
 import Profil from "@/views/ProfilPage.vue"
-import testRandom from "@/views/testRandom.vue"
-import NewCategory from "@/views/NewCategory.vue"
 import NewItem from "@/views/NewItemPage.vue"
 import AllItems from "@/views/AllItemsPage.vue"
 import ItemPage from "@/views/ItemProfilPage.vue"
@@ -53,16 +51,6 @@ const routes=[
         path: "/newItem",
         name: "newItem",
         component: NewItem,
-    },
-    {
-        path: "/testRandom",
-        name: "testRandom",
-        component: testRandom,
-    },
-    {
-        path: "/newCategory",
-        name: "newCategory",
-        component: NewCategory
     },
     {
         path: "/allItems",

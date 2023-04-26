@@ -44,6 +44,7 @@ import axios from 'axios';
           this.userInfo = await res
           console.log(this.userInfo.userType)
         },
+
     },
     async mounted(){
         if(localStorage.getItem("userID")!="null"){

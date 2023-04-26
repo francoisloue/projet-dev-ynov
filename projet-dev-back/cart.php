@@ -39,6 +39,7 @@ try {
             if (count($request_URI)>2) {
                 if (intval($request_URI[2]) != 0) {
                     $DB->delete("itemscart","id",$request_URI[2]);
+                    echo(true);
                 } else {
                     echo($request_error);
                 }
