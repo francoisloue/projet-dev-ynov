@@ -3,6 +3,7 @@
     <div class="navbar">
         <ul>
           <div v-if="!isConnected">
+            <!-- <li><a href="/login"><vi-icon name="bi-box-arrow-in-right"/></a></li> -->
             <li><a href="/login"> Login</a></li>
             <li><a href="/register">Register</a></li>
           </div>
