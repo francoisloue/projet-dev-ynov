@@ -18,8 +18,10 @@
                 <p class="card-price">{{ item.price }}€</p>
             </div>
             <div class="button-section">
-                <button v-on:click="goToItemPage(item.id)">More Info</button>
-                <button v-on:click="addToCart(item.id)">Add To Cart</button>
+                <button  v-on:click="goToItemPage(item.id)">More Info</button>
+                <button v-if="curentUser.userType==1" v-on:click="addToCart(item.id)">Add To Cart</button>
+                <button v-if="curentUser.userType==2" v-on:click="deleteItem(item.id)">Delete this object of the store</button>
+
             </div>
         </div>
     </div>
@@ -33,6 +35,7 @@ import axios from 'axios'
         items:[],
         categories: [],
         categoryFilter: "",
+        curentUser:{},
       }
     },
     methods:{
@@ -69,13 +72,22 @@ import axios from 'axios'
             this.getAllItems()
           }
         },
+        async deleteItem(itemId){
+          const req = await axios.delete("http://localhost/items/"+itemId)
+          const res = await req.data
+          if(res==true){
+            await this.getAllItems();
+          } else {
+            alert("error while removing items")
+          }
+        },
         async redirectUsers(){
           if("null"!=localStorage.getItem("userID")){
             const userID = localStorage.getItem("userID")
-            console.log(userID)
-            if(userID==2){
-              this.$router.push({ path: '/newItem'})
-            }else if(userID==999){
+            const req = await axios.get("http://localhost/users/"+userID)
+            const res = await req.data
+            this.curentUser = await res
+            if(this.curentUser.userType==999){
               this.$router.push({ path: '/adminPannel'})
             }
           } else {
@@ -102,7 +114,7 @@ import axios from 'axios'
 .allItems{
 	display: flex;
 	flex-direction: row;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: stretch;
 	align-content: stretch;
