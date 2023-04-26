@@ -40,6 +40,19 @@ try {
             } else {
                 echo(json_encode($DB->getInDB("*","category")));
             }
+            break;
+        case "DELETE":
+            if(count($request_URI)>2){
+                if(intval($request_URI[2])!=0){
+                    $DB->delete("category","id",$request_URI[2]);
+                    echo(true);
+                    break;
+                } else {
+                    echo(false);
+                    break;
+                }
+            }
+            break;
     }
 } catch(ERROR $e){
     echo false;

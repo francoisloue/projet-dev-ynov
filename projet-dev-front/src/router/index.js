@@ -10,6 +10,7 @@ import AllItems from "@/views/AllItemsPage.vue"
 import ItemPage from "@/views/ItemProfilPage.vue"
 import CartPage from "@/views/CartPage.vue"
 import RedirectMain from "@/components/RedirectMain.vue"
+import CategoriesPage from "@/views/CategoryPage.vue"
 
 const routes=[
     {
@@ -66,6 +67,11 @@ const routes=[
         path: "/cart",
         name: "cart",
         component: CartPage,
+    },
+    {
+        path: "/categories",
+        name: "Categories",
+        component: CategoriesPage,
     }
 ]
 

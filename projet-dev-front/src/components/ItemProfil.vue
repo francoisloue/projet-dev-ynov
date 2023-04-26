@@ -6,7 +6,8 @@
             <p>Price: {{ item.price }}</p>
             <p>Description: {{ item.description }}</p>
             <p>Category: {{ category.name }}</p>
-            <button>Add To Cart</button>
+            <button v-if="userInfo.userType==1" v-on:click="addToCart(item.id)">Add To Cart</button>
+            <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)">Delete this item</button>
         </div>
         <div class="randItem">
           <div class="card" v-for="item in this.itemsCat" v-bind:key="item.id">
@@ -18,8 +19,10 @@
                 <p class="card-price">Price: {{ item.price }}</p>
             </div>
             <div class="button-section">
-                <button v-on:click="goToItemPage(item.id)">More Info</button>
-                <button v-on:click="addToCart(item.id)">Add To Cart</button>
+                <button  v-on:click="goToItemPage(item.id)">More Info</button>
+                <button v-if="userInfo.userType==1" v-on:click="addToCart(item.id)">Add To Cart</button>
+                <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)">Add To Cart</button>
+
             </div>
         </div>
         </div>
@@ -35,6 +38,7 @@ import axios from 'axios'
         idFromQuery: 0,
         category:{},
         itemsCat:[],
+        userInfo:{},
       }
     },
     methods:{
@@ -54,9 +58,24 @@ import axios from 'axios'
           await res.forEach((itemGet,index) => {if(itemGet.id==this.item.id)res.splice(index,1)});
           this.itemsCat = await res
         },
+        async getUserInfo(){
+          const req = await axios.get("http://localhost/users/"+localStorage.getItem("userID"))
+          const res = await req.data
+          this.userInfo = await res
+        },
+        async deleteItem(itemId){
+          const req = await axios.delete("http://localhost/items/"+itemId)
+          const res = await req.data
+          if(res==true){
+            this.$router.push({path: "/allItems"})
+          } else {
+            alert("error while removing items")
+          }
+        }
     },
     async mounted(){
         this.idFromQuery = this.$route.query.id;
+        await this.getUserInfo();
         await this.getInfoItem();
         await this.getCategory();
         await this.getRandomCatItems();
