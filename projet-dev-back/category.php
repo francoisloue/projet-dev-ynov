@@ -41,10 +41,14 @@ try {
                 echo(json_encode($DB->getInDB("*","category")));
             }
             break;
-        case "DELETE":
+        case ("DELETE"):
             if(count($request_URI)>2){
                 if(intval($request_URI[2])!=0){
+                    $items=$DB->getInDB("*", "items", "categoryID", $request_URI[2]);
                     $DB->delete("category","id",$request_URI[2]);
+                    foreach($items as $item) {
+                        $DB->delete("items", "id", $item["id"]);
+                    }
                     echo(true);
                     break;
                 } else {
