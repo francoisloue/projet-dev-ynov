@@ -88,7 +88,7 @@ import axios from 'axios'
 .allItems{
 	display: flex;
 	flex-direction: row;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: stretch;
 	align-content: stretch;
