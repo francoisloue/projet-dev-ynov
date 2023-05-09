@@ -2,10 +2,9 @@
   <link rel="stylesheet" href="css/pico.min.css">
     <div class="navbar">
         <ul>
-          <div v-if="!isConnected">
-            <!-- <li><a href="/login"><vi-icon name="bi-box-arrow-in-right"/></a></li> -->
+          <div v-if="!isConnected" style="display: flex; justify-content: end; margin-right: 2%;">
             <li><a href="/login"> Login</a></li>
-            <li><a href="/register">Register</a></li>
+            <li style="display: flex; flex-direction: row; align-items: center; justify-content: center;"><a href="/register">Register</a><v-icon name="bi-box-arrow-in-right" scale="2.0"/></li>
           </div>
           <div v-else>
             <div v-if="this.userInfo.userType==1">

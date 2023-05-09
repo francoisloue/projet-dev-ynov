@@ -1,13 +1,20 @@
 <template>
-    <div class="container">
+    <div class="item-container">
         <div class="info">
+          <div class="left-side">
+            <img v-bind:src="item.imageURL" v-bind:alt="item.name +' image' " style="height: 100%; width: 100%;"/>
+          </div>
+          <div class="right-side">
             <h1>{{ item.name }}</h1>
-            <img v-bind:src="item.imageURL" v-bind:alt="item.name +' image' "/>
-            <p>Price: {{ item.price }}</p>
+            <p>Price: {{ item.price }} €</p>
             <p>Description: {{ item.description }}</p>
             <p>Category: {{ category.name }}</p>
-            <button v-if="userInfo.userType==1" v-on:click="addToCart(item.id)">Add To Cart</button>
-            <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)">Delete this item</button>
+            <button v-if="userInfo.userType==1" v-on:click="addToCart(item.id)" style="display: flex; justify-content: center; align-items: center;">Add To Cart<v-icon name="bi-cart"/></button>
+            <div style="display: flex; flex-direction: row; align-items: center;">
+              <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)" style="height:50%;width: 10%;display: flex; justify-content: center;align-items: center;"><v-icon name="bi-trash" scale="3.0"/></button>
+            <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)" style=" height:50%;width: 10%;display: flex; justify-content: center;align-items: center; margin-left: 10%;"><v-icon name="bi-wrench-adjustable" scale="3.0"/></button>
+            </div>
+          </div>
         </div>
         <div class="randItem">
           <div class="card" v-for="item in this.itemsCat" v-bind:key="item.id">
@@ -87,15 +94,34 @@ import axios from 'axios'
 </script>
 
 <style>
-.container{
+.info {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}
+
+.left-side {
+  padding: 1%;
+  width: 50%;
+  height: 100%;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 50%;
+  padding: 2%;
+}
+
+.item-container{
 	display: flex;
+  margin-top: 5%;
 	flex-direction: column !important;
-	flex-wrap: nowrap;
 	justify-content: center;
-	align-items: stretch;
-	align-content: stretch;
-    width: 100%;
-    height: 100%;
+	align-items: center;
+  width: 100%;
+  height: 100%;
 }
 .randItem{
 	display: flex;
