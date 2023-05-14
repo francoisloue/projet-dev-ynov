@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="containerProfil">
         <h1>List of all Users</h1>
         <div v-for="user in this.users" class="user" v-bind:key="user">
           <h1>{{ user.username }}</h1>
@@ -82,12 +82,24 @@
   .card .panier{
       width: 80%;
   }
-  .container{
+  .containerProfil{
     display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
       justify-content: flex-start;
-      align-items: stretch;
-      align-content: stretch;
+      align-items: center;
+      align-content: center;
+  }
+  .user{
+    border: solid white;
+    margin: 5%;
+    padding: 5%;
+    display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      align-content: center;
+      max-width: 50%;
   }
   </style>
