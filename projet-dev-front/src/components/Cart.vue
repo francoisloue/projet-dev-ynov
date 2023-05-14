@@ -54,19 +54,31 @@ export default {
     async goToArticle(idItem) {
       this.$router.push({ path: "/itemProfil", query: { id: idItem } });
     },
-    async removeArticle(idItem) {
-      const req = await axios.delete("http://localhost/cart/" + idItem);
-      const res = await req.data;
-      console.log(res);
-      if (res == true) this.getAllItems();
+    methods:{
+        async getAllItems(){
+            const req = await axios.get("http://localhost/cart/"+this.idUser)
+            const res = await req.data
+            this.items = await res;
+            await this.calcTotalPrice();
+        },
+        async goToArticle(idItem){
+            this.$router.push({ path: '/itemProfil', query: { id: idItem }})
+        },
+        async removeArticle(idItem){
+            const req = await axios.delete("http://localhost/cart/" + idItem);
+            const res = await req.data;
+            console.log(res)
+            if(res==true)this.getAllItems();
+            
+        },
     },
-    async calcTotalPrice() {
-      this.totalPrice = 0;
-      this.items.forEach((item) => (this.totalPrice += item.price));
-    },
-    async goShopping() {
-      this.$router.push({ path: "/allItems" });
-    },
+    async calcTotalPrice(){
+            this.totalPrice = 0;
+            this.items.forEach(item=>this.totalPrice+=item.price*item.quantity)
+        },
+        async goShopping(){
+            this.$router.push({ path: '/allItems'})
+        }
   },
   async mounted() {
     this.idUser = localStorage.getItem("userID");

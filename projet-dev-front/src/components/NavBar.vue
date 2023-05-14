@@ -13,6 +13,7 @@
             </div>
             <div v-else-if="this.userInfo.userType==2">
               <li><a href="/newItem">Seller Pannel</a></li>
+              <li><a href="/allItems">Products</a></li>
             </div>
             <div v-else>
               <li><a href="/adminPannel">Admin Pannel</a></li>
@@ -42,7 +43,7 @@ import axios from 'axios';
           const req = await axios.get("http://localhost/users/"+this.userId)
           const res = await req.data
           this.userInfo = await res
-          console.log(this.userInfo.userType)
+          console.log("userType: " + this.userInfo.userType)
         },
 
     },

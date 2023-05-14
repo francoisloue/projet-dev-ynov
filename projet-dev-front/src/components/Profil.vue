@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>Username :{{ userInfo.username }}</h1>
+        <h1>Username: {{ userInfo.username }}</h1>
         <ul>
             <li>id: {{ userInfo.id }}</li>
             <li>mail: {{ userInfo.mail }}</li>
@@ -73,6 +73,13 @@ export default {
 </script>
 
 <style>
-
+.container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
 
 </style>

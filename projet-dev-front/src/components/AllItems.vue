@@ -7,6 +7,7 @@
             {{ category.name }}
           </option>
         </select>
+        <h1>Hello {{ this.curentUser.username }}</h1>
   </div>
     <div class="allItems">
         <div class="card" v-for="item in this.items" v-bind:key="item.id">
@@ -19,7 +20,16 @@
             </div>
             <div class="button-section">
                 <button  v-on:click="goToItemPage(item.id)">More Info</button>
-                <button v-if="curentUser.userType==1" v-on:click="addToCart(item.id)">Add To Cart</button>
+
+                  <button v-if="curentUser.userType==1 && item.quantityCart<=0" v-on:click="addToCart(item.id)">Add To Cart</button>
+
+                  <div class="addOrRemoveItem" v-if="curentUser.userType==1 && item.quantityCart>=1">
+                    <button v-on:click="updateQuantityInCart(false,item)">-</button>
+                    <p>Current: {{ item.quantityCart }}</p>
+                    <button v-on:click="updateQuantityInCart(true,item)">+</button>
+                  </div>
+
+
                 <button v-if="curentUser.userType==2" v-on:click="deleteItem(item.id)">Delete this object of the store</button>
 
             </div>
@@ -32,6 +42,7 @@ import axios from 'axios'
   export default {
     data(){
       return{
+        idUser:"",
         items:[],
         categories: [],
         categoryFilter: "",
@@ -56,6 +67,13 @@ import axios from 'axios'
             const req = await axios.post("http://localhost/cart",data);
             const res = await req.data;
             console.log(await res)
+            await this.getAllItems();
+            await this.getItemsCart();
+              //changing localy the value of quantity in cart to avoid another API call
+              // this.items[this.items.findIndex(item=>item.id==idItem)].quantityCart = 1
+              // this.items[this.items.findIndex(item=>item.id==idItem)].idItemCart = res
+              console.log(this.items)
+            
         },
         async getAllCategories(){
           const req = await axios.get("http://localhost/category")
@@ -63,7 +81,7 @@ import axios from 'axios'
           this.categories = res
         },
 
-        async SetFilter(){
+        async setFilter(){
           if(!isNaN(parseInt(this.categoryFilter))){
             const req = await axios.get("http://localhost/items/category/"+this.categoryFilter)
             const res = await req.data
@@ -94,17 +112,51 @@ import axios from 'axios'
             this.$router.push({ path: '/login'})
           }
         },
+        async getItemsCart(){
+          const req = await axios.get("http://localhost/cart/"+this.idUser)
+          const res = await req.data
+          const itemsInCart = await res
+          let allItems = this.items
+          allItems.forEach(item => {
+            item.quantityCart = 0
+            item.idItemCart = 0
+            itemsInCart.forEach(itemCart => {
+              if(itemCart.productID==item.id){
+                item.quantityCart = itemCart.quantity
+                item.idItemCart = itemCart.id
+              }
+            });
+          });
+          this.items = allItems
+        },
+        async updateQuantityInCart(isAdding,item){
+          let urlChange = ""
+          console.log(isAdding)
+          if(isAdding){
+            urlChange = "addOne"
+          }else{
+            urlChange = "removeOne"
+          }
+          const url = "http://localhost/cart/"+urlChange+"/"+item.idItemCart
+          const req = await axios.put(url)
+          const res = await req.data
+          console.log(res)
+          await this.getAllItems();
+          await this.getItemsCart();
+        }
 
     },
     async mounted(){
+      this.idUser = localStorage.getItem("userID")
       await this.redirectUsers();
       await this.getAllItems();
       await this.getAllCategories();
+      await this.getItemsCart();
     },
     watch:{
       categoryFilter(newFilter){
         this.categoryFilter = newFilter
-        this.SetFilter()
+        this.setFilter()
       }
     }
   }

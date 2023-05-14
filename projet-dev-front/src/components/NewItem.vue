@@ -12,9 +12,10 @@
       />
       <label for="price">* Item Price :</label>
       <input
-        type="text"
+        type="number"
         placeholder="enter the item price"
         v-model="itemPrice"
+        min="0"
       />
       <label for="categroyID">* Item Category :</label>
       <div class="category-div">

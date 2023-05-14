@@ -43,7 +43,7 @@ try{
                             $address = $decode["address"];
                             $user = new User($username,$password,$mail,new DateTime(),$address);
                             $idUser = $user->addEmployee();
-                            echo($idUser);
+                            echo(true);
                             break;
                     }
                 }

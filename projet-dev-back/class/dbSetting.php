@@ -42,7 +42,9 @@ class DBHandler
             error_reporting(E_ALL);
             echo "there has been an issue with : " . $sql . " " . mysqli_error($con);
         }
+        $idCreateObject = $con->insert_id;
         mysqli_close($con);
+        return $idCreateObject;
     }
 
     public function getFromDbByParam(string $table, string $param, string $condition)
@@ -81,8 +83,9 @@ class DBHandler
     public function updateInDB(string $table, string $rowToUpdate, mixed $newValue, string $tableCondition, string $condition)
     {
         $db = $this->connect();
-        $sql = $db->prepare("UPDATE `$table` SET `$rowToUpdate` = ? WHERE $tableCondition = ?;");
-        $sql->execute([$newValue, $condition]);
+        $sql = $db->prepare("UPDATE `$table` SET `$rowToUpdate` = $newValue WHERE $tableCondition = ?;");
+        echo("UPDATE `$table` SET `$rowToUpdate` = $newValue WHERE $tableCondition = $condition");
+        $sql->execute([$condition]);
         mysqli_close($db);
     }
 
