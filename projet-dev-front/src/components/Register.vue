@@ -33,6 +33,10 @@ export default {
     }
   },
   methods:{
+    // This is a method called `register` that is defined in a Vue.js component. It is an asynchronous
+    // function that sends a POST request to a server endpoint at "http://localhost/users/register"
+    // with the user's registration information (username, password, email, and address) in the request
+    // body.
     async register(){
       if(!this.username||!this.password||!this.mail||!this.address){
         this.errorMessage="Please fill all fields ."

@@ -32,6 +32,12 @@
         async goToProfil(idUser){
           this.$router.push({ path: '/profil', query: { id: idUser }})
         },
+        // `async getInfoCurrentUser()` is a method that is called during the `mounted()` lifecycle
+        // hook. It checks if there is a `userID` stored in the `localStorage`. If there is, it sends a
+        // GET request to the server to retrieve the user data for that `userID`. If the user is not an
+        // admin (userType is not 999), it redirects to the All Items page. If the user is an admin, it
+        // sets the `currentUser` data property to the retrieved user data. If there is no `userID`
+        // stored in the `localStorage`, it redirects to the login page.
         async getInfoCurrentUser(){
           if(localStorage.getItem("userID")){
             const req = await axios.get("http://localhost/users/" + localStorage.getItem("userID"))

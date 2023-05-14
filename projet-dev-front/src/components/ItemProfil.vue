@@ -92,6 +92,10 @@ import axios from 'axios'
           }
         },
 
+        // This function is updating the quantity of an item in the user's cart by sending a PUT
+        // request to the server with the appropriate URL based on whether the user is adding or
+        // removing an item from their cart. It then updates the item information and the user's cart
+        // information by calling the `getInfoItem()` and `getItemsCart()` functions respectively.
         async updateQuantityInCart(isAdding,item){
           let urlChange = ""
           if(isAdding){
@@ -116,6 +120,11 @@ import axios from 'axios'
             const res = await req.data;
             console.log(await res)
         },
+        // This function is making an asynchronous GET request to the server to retrieve the items in
+        // the user's cart. It then updates the `quantityCart` property of the `item` object with the
+        // quantity of the item in the user's cart, and sets the `idItemCart` property to the ID of the
+        // item in the user's cart. This information is used to display the appropriate buttons and
+        // information on the item page.
         async getItemsCart(){
           const req = await axios.get("http://localhost/cart/"+this.userInfo.id)
           const res = await req.data
