@@ -1,7 +1,7 @@
 <template>
   <div class="filterPart">
     <h1>Filter by Category</h1>
-    <select v-model="this.categoryFilter">
+    <select v-model="this.categoryFilter" style="width:80%">
           <option selected>No Filter</option>
           <option  v-for="category in this.categories" v-bind:key="category.id" v-bind:value="category.id">
             {{ category.name }}
@@ -169,6 +169,10 @@ import axios from 'axios'
 }
 
 .filterPart{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 10%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="user-container">
         <h1>List of all Users</h1>
         <div v-for="user in this.users" class="user" v-bind:key="user">
           <h1>{{ user.username }}</h1>
@@ -58,36 +58,9 @@
   </script>
   
   <style>
-  
-  .createProduct {
-      display: inline-block;
-      margin-left: auto;
-      margin-right: auto;
-      border: 3px solid !important;
-      border-radius: 20px !important;
-      border-color: white !important;
-      width: 30%;
-      margin-top: 20%;
-  }
-  .createCategory{
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    border: 3px solid !important;
-    border-radius: 20px !important;
-    border-color: white !important;
-    width: 30%;
-  }
-  
-  .card .panier{
-      width: 80%;
-  }
-  .container{
+  .user-container{
+    margin-top: 10%;
     display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      align-items: stretch;
-      align-content: stretch;
+    flex-direction: column;
   }
   </style>
