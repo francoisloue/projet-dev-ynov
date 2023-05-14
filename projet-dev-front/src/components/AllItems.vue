@@ -7,6 +7,7 @@
             {{ category.name }}
           </option>
         </select>
+        <h1>Hello {{ this.curentUser.username }}</h1>
   </div>
     <div class="allItems">
         <div class="card" v-for="item in this.items" v-bind:key="item.id">
@@ -63,7 +64,7 @@ import axios from 'axios'
           this.categories = res
         },
 
-        async SetFilter(){
+        async setFilter(){
           if(!isNaN(parseInt(this.categoryFilter))){
             const req = await axios.get("http://localhost/items/category/"+this.categoryFilter)
             const res = await req.data
@@ -104,7 +105,7 @@ import axios from 'axios'
     watch:{
       categoryFilter(newFilter){
         this.categoryFilter = newFilter
-        this.SetFilter()
+        this.setFilter()
       }
     }
   }

@@ -45,7 +45,7 @@ export default {
             "address":this.address,
         }))
         const res = await post.data
-        console.log(await res)
+        if(await res==true)this.$router.push("/allItems")
       }
     }
   },

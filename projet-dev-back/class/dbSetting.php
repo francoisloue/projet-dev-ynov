@@ -42,7 +42,9 @@ class DBHandler
             error_reporting(E_ALL);
             echo "there has been an issue with : " . $sql . " " . mysqli_error($con);
         }
+        $idCreateObject = $con->insert_id;
         mysqli_close($con);
+        return $idCreateObject;
     }
 
     public function getFromDbByParam(string $table, string $param, string $condition)
