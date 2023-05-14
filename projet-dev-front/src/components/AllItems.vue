@@ -58,6 +58,12 @@ import axios from 'axios'
         async goToItemPage(idItem){
           this.$router.push({ path: '/itemProfil', query: { id: idItem }})
         },
+        // `async addToCart(idItem)` is a method that adds an item to the user's cart. It creates an
+        // object `data` with the `idUser`, `idItem`, and `quantity` properties, and sends an HTTP POST
+        // request to the server with the URL "http://localhost/cart" and the `data` object as the
+        // request body. It then retrieves the response data using `await req.data`, logs it to the
+        // console, and updates the `this.items` array by calling the `getAllItems()` and
+        // `getItemsCart()` methods.
         async addToCart(idItem){
             const data = {
                 "idUser": localStorage.getItem("userID"),
@@ -69,11 +75,6 @@ import axios from 'axios'
             console.log(await res)
             await this.getAllItems();
             await this.getItemsCart();
-              //changing localy the value of quantity in cart to avoid another API call
-              // this.items[this.items.findIndex(item=>item.id==idItem)].quantityCart = 1
-              // this.items[this.items.findIndex(item=>item.id==idItem)].idItemCart = res
-              console.log(this.items)
-            
         },
         async getAllCategories(){
           const req = await axios.get("http://localhost/category")
@@ -99,6 +100,12 @@ import axios from 'axios'
             alert("error while removing items")
           }
         },
+        // `async redirectUsers()` is a method that checks if there is a user ID stored in the local
+        // storage. If there is, it sends an HTTP GET request to the server to retrieve the user
+        // information using the user ID. It then sets the `curentUser` data property to the retrieved
+        // user information. If the user type is 999 (admin), it redirects the user to the admin panel
+        // page. If there is no user ID stored in the local storage, it redirects the user to the login
+        // page.
         async redirectUsers(){
           if("null"!=localStorage.getItem("userID")){
             const userID = localStorage.getItem("userID")
@@ -112,6 +119,11 @@ import axios from 'axios'
             this.$router.push({ path: '/login'})
           }
         },
+        // `async getItemsCart()` is a method that retrieves the items in the user's cart from the
+        // server using an HTTP GET request to the URL "http://localhost/cart/" + this.idUser. It then
+        // updates the `quantityCart` and `idItemCart` properties of each item in the `this.items`
+        // array based on the items retrieved from the server. Finally, it updates the `this.items`
+        // array with the updated values.
         async getItemsCart(){
           const req = await axios.get("http://localhost/cart/"+this.idUser)
           const res = await req.data
@@ -129,6 +141,10 @@ import axios from 'axios'
           });
           this.items = allItems
         },
+        // `async updateQuantityInCart(isAdding,item)` is a method that updates the quantity of an item
+        // in the user's cart. It takes two parameters: `isAdding`, a boolean value that indicates
+        // whether the quantity should be increased or decreased, and `item`, the item object that
+        // needs to be updated.
         async updateQuantityInCart(isAdding,item){
           let urlChange = ""
           console.log(isAdding)
@@ -144,7 +160,6 @@ import axios from 'axios'
           await this.getAllItems();
           await this.getItemsCart();
         }
-
     },
     async mounted(){
       this.idUser = localStorage.getItem("userID")
