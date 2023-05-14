@@ -3,6 +3,8 @@ header('Content-type: text/javascript');
 require_once("./class/dbSetting.php");
 require_once("./header.php");
 $DB = new DBHandler();
+/* This code is handling the routing of requests to different PHP files based on the first segment of
+the URL path. */
 $_SESSION["request"] = explode("/",$_SERVER["REQUEST_URI"]);
 $request = $_SESSION["request"];
 switch ($request[1]) {

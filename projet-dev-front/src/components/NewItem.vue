@@ -89,6 +89,13 @@ export default {
     };
   },
   methods: {
+    // This is a method called `CreatNewItem` that is responsible for creating a new item to sell. It
+    // first checks if all the required fields are filled, and if not, it sets an error message. If the
+    // required fields are filled, it checks if a category is specified or a new one needs to be
+    // created. If a new category needs to be created, it calls the `CreatNewCategory` method to create
+    // it and get the list of all categories. It then sets the `itemCategory` to the ID of the newly
+    // created category. Finally, it creates a new item by sending a POST request to the server with
+    // the item data, and then it redirects the user to the `allItems` page.
     async CreatNewItem() {
       if (!this.itemName || !this.itemPrice || !this.itemCategory && !this.categoryName) {
         this.errorMessage = "One of the required fields is empty";
