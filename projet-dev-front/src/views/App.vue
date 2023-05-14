@@ -15,7 +15,6 @@
       methods: {
       },
       async mounted(){
-        console.log("hiii");
         }
     }
     </script>

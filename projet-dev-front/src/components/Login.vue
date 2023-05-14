@@ -1,12 +1,16 @@
 <template>
-    <div>
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <div class="login-form">
       <h1>Login</h1>
       <label for="mail">Adresse mail :</label>  
-      <input id="mail" type="text" v-model="email">
-      <label for="mdp">Mots de passe :</label>  
+      <input id="mail" type="text" v-model="mail">
+      <label for="mdp">Mot de passe :</label>  
       <input id="mdp" type="password" v-model="password"/>
       <input type="button" value="Login" v-on:click="login()"/>
+      <p v-if="errorLogin">{{ errorLogin }}</p>
+      <p style="display: flex; justify-content: center; align-items: center;">Vous n'avez pas encore de compte ? Créez en un maintenant<v-icon name="bi-arrow-right-short" scale="2.0"/><a href="/register">ici</a></p>
     </div>
+  </div>
 </template>
 
 
@@ -16,29 +20,38 @@ import axios from 'axios';
 export default {
   data(){
     return{
-      email:"",
-      password:"",
+        mail:"",
+        password:"",
+        errorLogin: "",
     }
-
   },
   methods:{
     async login(){
-      const req = await axios.post("http://localhost/48h_back/login.php",JSON.stringify({
-        "email":this.email,
+      const req = await axios.post("http://localhost/users/login",JSON.stringify({
+        "mail":this.mail,
         "password":this.password,
       }))
       const res = await req.data
       if(res != false){
-        console.log("sucessfull login")
+        localStorage.setItem("userID",res)
+        this.$router.push("/allItems")
       }else{
-        console.log("Bad password")
+        this.errorLogin = "Error with your Email or password"
       }  
     }
+  },
+  async mounted(){
+    if(localStorage.getItem("userID")!="null")this.$router.push("/allItems");
   }
 }
 </script>
 
 <style>
-
-
+.login-form {
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-top: 10%;
+}
 </style>
