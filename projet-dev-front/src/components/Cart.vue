@@ -47,7 +47,7 @@ import axios from 'axios'
         },
         async calcTotalPrice(){
             this.totalPrice = 0;
-            this.items.forEach(item=>this.totalPrice+=item.price)
+            this.items.forEach(item=>this.totalPrice+=item.price*item.quantity)
         },
         async goShopping(){
             this.$router.push({ path: '/allItems'})

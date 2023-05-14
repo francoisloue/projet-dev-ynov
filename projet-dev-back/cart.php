@@ -22,8 +22,39 @@ try {
                 "productID" => $idItem,
                 "quantity" =>$quantity,
             );
-            $DB->insert($data,"itemscart");
+            $idCartItem = $DB->insert($data,"itemscart");
+            echo($idCartItem);
             break;
+
+            
+        case("PUT"):
+            if (count($request_URI)>3) {
+                if (intval($request_URI[3]) != 0) {
+                    echo(json_encode($request_URI));
+                    if($request_URI[2]=="addOne"){
+                        echo("addOne");
+                        $DB->updateInDB("itemscart","quantity","`quantity`+1","id",$request_URI[3]);
+                        break;
+                    }else if($request_URI[2]=="removeOne"){
+                        if($DB->getInDB("quantity","itemscart","id",$request_URI[3])[0]["quantity"]==1){
+                            $DB->delete("itemscart","id",$request_URI[3]);
+                            break;
+                        }else{
+                            $DB->updateInDB("itemscart","quantity","`quantity`-1","id",$request_URI[3]);
+                            break;
+                        }
+                    }else{
+                        echo($request_error);
+                    }
+                } else {
+                    echo($request_error);
+                }
+            } else {
+                echo($request_error);
+            }
+            break;
+
+
         case ("GET"):
             if (count($request_URI)>2) {
                 if (intval($request_URI[2]) != 0) {

@@ -9,7 +9,17 @@
             <p>Price: {{ item.price }} €</p>
             <p>Description: {{ item.description }}</p>
             <p>Category: {{ category.name }}</p>
-            <button v-if="userInfo.userType==1" v-on:click="addToCart(item.id)" style="display: flex; justify-content: center; align-items: center;">Add To Cart<v-icon name="bi-cart"/></button>
+            <button v-if="userInfo.userType==1 && item.quantityCart<1" v-on:click="addToCart(item.id)" style="display: flex; justify-content: center; align-items: center;">Add To Cart<v-icon name="bi-cart"/></button>
+            
+
+            <div class="addOrRemoveItem" v-if="userInfo.userType==1 && item.quantityCart>=1">
+                  <button v-on:click="updateQuantityInCart(false,item)">-</button>
+                  <p>Current: {{ item.quantityCart }}</p>
+                  <button v-on:click="updateQuantityInCart(true,item)">+</button>
+                </div>
+            
+            
+            
             <div style="display: flex; flex-direction: row; align-items: center;">
               <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)" style="height:50%;width: 10%;display: flex; justify-content: center;align-items: center;"><v-icon name="bi-trash" scale="3.0"/></button>
             <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)" style=" height:50%;width: 10%;display: flex; justify-content: center;align-items: center; margin-left: 10%;"><v-icon name="bi-wrench-adjustable" scale="3.0"/></button>
@@ -27,7 +37,9 @@
             </div>
             <div class="button-section">
                 <button  v-on:click="goToItemPage(item.id)">More Info</button>
-                <button v-if="userInfo.userType==1" v-on:click="addToCart(item.id)">Add To Cart</button>
+                <button v-if="userInfo.userType==1 && item.quantityCart<=0" v-on:click="addToCart(item.id)">Add To Cart</button>
+
+                                
                 <button v-if="userInfo.userType==2" v-on:click="deleteItem(item.id)">Add To Cart</button>
 
             </div>
@@ -78,7 +90,44 @@ import axios from 'axios'
           } else {
             alert("error while removing items")
           }
-        }
+        },
+
+        async updateQuantityInCart(isAdding,item){
+          let urlChange = ""
+          if(isAdding){
+            urlChange = "addOne"
+          }else{
+            urlChange = "removeOne"
+          }
+          const url = "http://localhost/cart/"+urlChange+"/"+item.idItemCart
+          const req = await axios.put(url)
+          const res = await req.data
+          console.log(res)
+          await this.getInfoItem()
+          await this.getItemsCart()
+        },
+        async addToCart(idItem){
+            const data = {
+                "idUser": localStorage.getItem("userID"),
+                "idItem":idItem,
+                "quantity":1,
+            }
+            const req = await axios.post("http://localhost/cart",data);
+            const res = await req.data;
+            console.log(await res)
+        },
+        async getItemsCart(){
+          const req = await axios.get("http://localhost/cart/"+this.userInfo.id)
+          const res = await req.data
+          let itemsInCart = await res
+          this.item.quantityCart=0
+          itemsInCart.forEach(itemCart => {
+            if(itemCart.productID==this.item.id){
+              this.item.quantityCart = itemCart.quantity
+              this.item.idItemCart = itemCart.id
+            }
+          });
+        },
     },
     async mounted(){
         this.idFromQuery = this.$route.query.id;
@@ -86,6 +135,7 @@ import axios from 'axios'
         await this.getInfoItem();
         await this.getCategory();
         await this.getRandomCatItems();
+        await this.getItemsCart();
     },
     watch:{
       

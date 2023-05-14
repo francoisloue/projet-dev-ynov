@@ -83,8 +83,9 @@ class DBHandler
     public function updateInDB(string $table, string $rowToUpdate, mixed $newValue, string $tableCondition, string $condition)
     {
         $db = $this->connect();
-        $sql = $db->prepare("UPDATE `$table` SET `$rowToUpdate` = ? WHERE $tableCondition = ?;");
-        $sql->execute([$newValue, $condition]);
+        $sql = $db->prepare("UPDATE `$table` SET `$rowToUpdate` = $newValue WHERE $tableCondition = ?;");
+        echo("UPDATE `$table` SET `$rowToUpdate` = $newValue WHERE $tableCondition = $condition");
+        $sql->execute([$condition]);
         mysqli_close($db);
     }
 
