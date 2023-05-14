@@ -2,8 +2,8 @@
 try{
     header('Content-type: text/javascript');
     require_once("class/dbSetting.php");
-    require_once("class/user.php");
-    require_once("class/category.php");
+    require_once("class/userClass.php");
+    require_once("class/categoryClass.php");
     require_once("./header.php");
 
     $DB = new DBHandler();
