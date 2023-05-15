@@ -1,8 +1,10 @@
 <template>
     <div class="allCategories">
         <div class="category" v-for="category in this.allCategories" v-bind:key="category.id">
-            <h1>Category Name: {{ category.name }}</h1>
-            <button v-on:click="deleteCategory(category.id)">Delete</button>
+            <div>
+                <p>Name : {{ category.name }}</p>
+            </div>
+            <button v-on:click="deleteCategory(category.id)" style="width: 10%;"><v-icon name="bi-trash" scale="1" /></button>
         </div>
     </div>
 </template>
@@ -54,13 +56,21 @@ export default {
 
 .allCategories{
     margin-top:5%;
-    display: flex;
-	flex-direction: column !important;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: stretch;
-	align-content: stretch;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.category {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    border-bottom: solid;
+    padding: 1%;
+    margin: 1%;
 }
 </style>

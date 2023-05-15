@@ -13,6 +13,7 @@
             </div>
             <div v-else-if="this.userInfo.userType==2">
               <li><a href="/newItem">Seller Pannel</a></li>
+              <li><a href="/categories">Categories</a></li>
               <li><a href="/allItems">Products</a></li>
             </div>
             <div v-else>

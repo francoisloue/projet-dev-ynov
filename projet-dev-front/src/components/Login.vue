@@ -7,7 +7,7 @@
       <label for="mdp">Mot de passe :</label>  
       <input id="mdp" type="password" v-model="password"/>
       <input type="button" value="Login" v-on:click="login()"/>
-      <p v-if="errorLogin">{{ errorLogin }}</p>
+      <p v-if="errorLogin" style="color: red;justify-content: center; align-items: center;"><v-icon name="bi-exclamation-octagon-fill" fill="red" animation="wrench"/>    {{ errorLogin }}</p>
       <p style="display: flex; justify-content: center; align-items: center;">Vous n'avez pas encore de compte ? Créez en un maintenant<v-icon name="bi-arrow-right-short" scale="2.0"/><a href="/register">ici</a></p>
     </div>
   </div>
